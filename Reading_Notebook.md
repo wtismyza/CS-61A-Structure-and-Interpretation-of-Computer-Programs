@@ -36,4 +36,17 @@ First, functions may take an arbitrary number of arguments:
 Second, function notation extends in a straightforward way to nested expressions, where the elements are themselves compound expressions. In nested call expressions, unlike compound infix expressions, the structure of the nesting is entirely explicit in the parentheses.
 Third, mathematical notation has a great variety of forms: multiplication appears between terms, exponents appear as superscripts, division as a horizontal bar, and a square root as a roof with slanted siding. Some of this notation is very hard to type! However, all of this complexity can be unified via the notation of call expressions. While Python supports common mathematical operators using infix notation (like + and -), any operator can be expressed as a function with a name.
   
+Practical Guidance. When indenting a suite, all lines must be indented the same amount and in the same way (use spaces, not tabs). Any variation in indentation will cause an error.
+  
+Python includes several false values, including 0, None, and the boolean value False. All other numbers are true values.
+  
+A while statement that does not terminate is called an infinite loop. Press <Control>-C to force Python to stop looping.
+  
+When writing Python in files, all doctests in a file can be run by starting Python with the doctest command line option:
+
+python3 -m doctest <python_source_file>
+  
+The key to effective testing is to write (and run) tests immediately after implementing new functions. It is even good practice to write some tests before you implement, in order to have some example inputs and outputs in your mind. A test that applies a single function is called a unit test. Exhaustive unit testing is a hallmark of good program design.
+
+
 
