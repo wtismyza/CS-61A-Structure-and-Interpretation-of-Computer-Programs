@@ -87,5 +87,131 @@ lab01:
   python3 ok -q debugging-quiz -u
   
 (lambda: 3)()
-  
+ 
+ ```
+ def cycle(f1, f2, f3):
+    """Returns a function that is itself a higher-order function.
+    >>> def add1(x):
+    ...     return x + 1
+    >>> def times2(x):
+    ...     return x * 2
+    >>> def add3(x):
+    ...     return x + 3
+    >>> my_cycle = cycle(add1, times2, add3)
+    >>> identity = my_cycle(0)
+    >>> identity(5)
+    5
+    >>> add_one_then_double = my_cycle(2)
+    >>> add_one_then_double(1)
+    4
+    >>> do_all_functions = my_cycle(3)
+    >>> do_all_functions(2)
+    9
+    >>> do_more_than_a_cycle = my_cycle(4)
+    >>> do_more_than_a_cycle(2)
+    10
+    >>> do_two_cycles = my_cycle(6)
+    >>> do_two_cycles(1)
+    19
+    """
+    def cycle_through(n):
+        funs = [f1, f2, f3]
 
+        def final_cycle(x):
+            count = 0
+
+            while count < n:
+                x = funs[count % 3](x)
+                count += 1
+
+            return x
+
+        return final_cycle
+    
+    return cycle_through
+```  
+```
+def make_repeater(f, n):
+    """Return the function that computes the nth application of f.
+    >>> add_three = make_repeater(increment, 3)
+    >>> add_three(5)
+    8
+    >>> make_repeater(triple, 5)(1) # 3 * 3 * 3 * 3 * 3 * 1
+    243
+    >>> make_repeater(square, 2)(5) # square(square(5))
+    625
+    >>> make_repeater(square, 4)(5) # square(square(square(square(5))))
+    152587890625
+    >>> make_repeater(square, 0)(5)
+    5
+    """
+    "*** YOUR CODE HERE ***"
+    return accumulate(compose1, lambda x: x, n, lambda x: f)
+
+# Alternatives
+
+    def calculator(x):
+        if n == 0:
+            return x
+        else:
+            return f(make_repeater(f, n - 1)(x))
+    return calculator
+
+
+
+
+
+def compose1(f, g):
+    """Return a function h, such that h(x) = f(g(x))."""
+    def h(x):
+        return f(g(x))
+    return h                            
+```
+```
+Solution
+def div_by_primes_under(n):
+    """
+    >>> div_by_primes_under(10)(11)
+    False
+    >>> div_by_primes_under(10)(121)
+    False
+    >>> div_by_primes_under(10)(12)
+    True
+    >>> div_by_primes_under(5)(1)
+    False
+    """
+    checker = lambda x: False
+    i = 2
+    while i <= n:
+        if not checker(i):
+            checker = (lambda f, i: lambda x: x % i == 0 or f(x))(checker, i)
+        i = i + 1
+    return checker
+
+def div_by_primes_under_no_lambda(n):
+    """
+    >>> div_by_primes_under_no_lambda(10)(11)
+    False
+    >>> div_by_primes_under_no_lambda(10)(121)
+    False
+    >>> div_by_primes_under_no_lambda(10)(12)
+    True
+    >>> div_by_primes_under_no_lambda(5)(1)
+    False
+    """
+    def checker(x):
+        return False
+    i = 2
+    while i <= n:
+        if not checker(i):
+            def outer(f, i):
+                def inner(x):
+                    return x % i == 0 or f(x)
+                return inner
+            checker = outer(checker, i)
+        i = i + 1
+    return checker                           
+```                           
+                            
+                            
+                            
