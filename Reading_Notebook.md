@@ -77,4 +77,15 @@ Python has a simple feature for computing attributes on the fly from zero-argume
 ```
   
 **Memoization**
+Q: How do you prevent the ok autograder from interpreting print statements as output?
+Choose the number of the correct choice:
+0) You don't need to do anything, ok only looks at returned values, not printed values
+1) Print with # at the front of the outputted line
+2) Print with 'DEBUG:' at the front of the outputted line  
   
+lab01:
+  python3 ok -q debugging-quiz -u
+  
+(lambda: 3)()
+  
+
