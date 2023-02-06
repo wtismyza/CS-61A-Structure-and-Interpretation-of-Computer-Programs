@@ -1289,7 +1289,13 @@ b'\x00\x9c@c'
 
   
 
-  
+Syntax
+dictionary.get(keyname, value)
+Parameter Values
+Parameter	Description
+keyname	Required. The keyname of the item you want to return the value from
+value	Optional. A value to return if the specified key does not exist.
+Default value None  
   
   
   
